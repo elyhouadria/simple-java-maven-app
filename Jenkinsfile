@@ -16,7 +16,7 @@ pipeline {
 
                 git 'https://github.com/aymendr/simple-java-maven-app.git'
 
-                bat 'echo Build Project'
+                bat 'echo Build Project on dev branch'
 
                 // Run Maven on a Unix agent.
 
