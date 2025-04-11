@@ -6,7 +6,6 @@ pipeline {
         maven "maven399"
 
     }
-
     stages {
 
         stage('Build') {
