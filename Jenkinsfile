@@ -2,24 +2,15 @@ pipeline {
     agent any
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
-
         maven "maven399"
-
     }
     stages {
-
         stage('Build') {
-
             steps {
-
                 // Get some code from a GitHub repository
-
                 git 'https://github.com/aymendr/simple-java-maven-app.git'
-
                 bat 'echo Build Project'
-
                 // Run Maven on a Unix agent.
-
                 bat "mvn -Dmaven.test.failure.ignore=true clean compile"
 
                 // To run Maven on a Windows agent, use
@@ -27,29 +18,28 @@ pipeline {
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
 
             }
-
         }
-
         stage('Test') {
-            parrallel
-        stage('Run Tests') {
-            parallel{
-                stage("Test on windows"){
-                    steps {
-                        bat 'echo Testing on windows'
-                        // Run Maven on a Unix agent.
-                        bat "mvn test"
-                    }
+            parrallel{
+                stage('Run Tests') {
+                    parallel{
+                        stage("Test on windows"){
+                            steps {
+                                bat 'echo Testing on windows'
+                                // Run Maven on a Unix agent.
+                                bat "mvn test"
+                            }
+                        }
+                        stage("Test on Linux"){
+                            steps {
+                                bat 'echo Testing on linux'
+                                // Run Maven on a Unix agent.
+                                // bat "mvn test"
+                            }
+                        }   
+                    }             
                 }
-                stage("Test on Linux"){
-                    steps {
-                        bat 'echo Testing on linux'
-                        // Run Maven on a Unix agent.
-                        // bat "mvn test"
-                    }
-                }   
-            }             
-        }
+            }
         stage('Packaging') {
 
             steps {
@@ -84,4 +74,5 @@ pipeline {
 
     }
 
+}
 }
