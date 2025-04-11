@@ -21,8 +21,6 @@ pipeline {
         }
         stage('Test') {
             parrallel{
-                stage('Run Tests') {
-                    parallel{
                         stage("Test on windows"){
                             steps {
                                 bat 'echo Testing on windows'
@@ -39,7 +37,6 @@ pipeline {
                         }   
                     }             
                 }
-            }
         stage('Packaging') {
 
             steps {
