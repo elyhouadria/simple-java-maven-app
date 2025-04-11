@@ -20,7 +20,7 @@ pipeline {
             }
         }
         stage('Test') {
-            parrallel{
+            parallel{
                         stage("Test on windows"){
                             steps {
                                 bat 'echo Testing on windows'
